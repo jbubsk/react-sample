@@ -28,7 +28,6 @@ var PostCard = React.createClass({
 
     render: function () {
         var classes = (this.props.selected ? 'selectedCard' : '') + ' postCard';
-
         return (
             <div
                 className={classes}

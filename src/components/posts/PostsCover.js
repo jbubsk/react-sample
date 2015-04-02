@@ -36,7 +36,7 @@ PostsCover = React.createClass({
         }
     },
     _handleChangeInList: function (params) {
-        var posts, result,
+        var posts = [], result,
             self = this,
             tab = this.state.selectedTab;
 
@@ -66,7 +66,7 @@ PostsCover = React.createClass({
         });
     },
     _handleChangeTabSelection: function (tab) {
-        var posts, result, self = this,
+        var posts = [], result, self = this,
             selectedPost;
 
         posts = this.props.posts.filter(function (post) {

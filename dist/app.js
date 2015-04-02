@@ -148,7 +148,6 @@ var PostCard = React.createClass({displayName: "PostCard",
 
     render: function () {
         var classes = (this.props.selected ? 'selectedCard' : '') + ' postCard';
-
         return (
             React.createElement("div", {
                 className: classes, 
@@ -195,73 +194,81 @@ var PostSide = React.createClass({displayName: "PostSide",
     },
 
     render: function () {
+        if (!this.props.post) {
+            content = '';
+        } else {
+            /* Non meaningful content for post */
 
-        /* Non meaningful content for post */
+            var postContent = "Tutorial Edit on GitHub" +
+                "We'll be building a simple but realistic comments box that you can drop into a blog" +
+                ", a basic version of the realtime comments offered by Disqus, LiveFyre or Facebook comments." +
 
-        var postContent = "Tutorial Edit on GitHub" +
-            "We'll be building a simple but realistic comments box that you can drop into a blog" +
-            ", a basic version of the realtime comments offered by Disqus, LiveFyre or Facebook comments." +
+                this.props.post.author +
 
-            this.props.post.author +
+                "A view of all of the comments" +
+                "A form to submit a comment" +
+                this.props.post.author +
+                "It'll also have a few neat features:" +
 
-            "A view of all of the comments" +
-            "A form to submit a comment" +
-            this.props.post.author +
-            "It'll also have a few neat features:" +
+                "Optimistic commenting: comments appear in the list before they're saved on the server so it feels fast." +
+                this.props.post.author +
+                "Markdown formatting: users can use Markdown to format their text." +
+                "Want to skip all this and just see the source?" +
+                this.props.post.authorSite +
 
-            "Optimistic commenting: comments appear in the list before they're saved on the server so it feels fast." +
-            this.props.post.author +
-            "Markdown formatting: users can use Markdown to format their text." +
-            "Want to skip all this and just see the source?" +
-            this.props.post.authorSite +
+                "Running a server " +
+                "While it's not necessary to get started with this tutorial, later on we'll be adding " +
+                this.props.post.author +
+                "with and want to create your own server, please do. For the rest of you who might want to focus on learning about" +
+                " React without having to worry about the server-side aspects, we have written simple servers in a number of languages - " +
+                this.props.post.authorSite +
+                "JavaScript (using Node.js), Python, Ruby, Go, and PHP. These are all available on GitHub. You can view " +
+                "the source or download a zip file to get started.";
 
-            "Running a server " +
-            "While it's not necessary to get started with this tutorial, later on we'll be adding " +
-            this.props.post.author +
-            "with and want to create your own server, please do. For the rest of you who might want to focus on learning about" +
-            " React without having to worry about the server-side aspects, we have written simple servers in a number of languages - " +
-            this.props.post.authorSite +
-            "JavaScript (using Node.js), Python, Ruby, Go, and PHP. These are all available on GitHub. You can view " +
-            "the source or download a zip file to get started.";
+            postContent += this._reverseText(postContent);
+            postContent += postContent;
+            postContent += this._reverseText(postContent);
 
-        postContent += this._reverseText(postContent);
-        postContent += postContent;
-        postContent += this._reverseText(postContent);
+            var content =
+                React.createElement("div", null, 
+                    React.createElement("div", {className: "postDetails"}, 
+                        React.createElement("div", {className: "authorAvatar"}, 
+                            React.createElement("img", {src: this.props.post.authorAvaUrl})
+                        ), 
+
+                        React.createElement("div", {className: "authorDetails"}, 
+                            React.createElement("div", {className: "detailsRow"}, 
+                                React.createElement("span", {className: "title"}, "Author:"), 
+                                React.createElement("span", {className: "value"}, this.props.post.author)
+                            ), 
+                            React.createElement("div", {className: "detailsRow"}, 
+                                React.createElement("span", {className: "title"}, "Age:"), 
+                                React.createElement("span", {className: "value"}, this.props.post.age)
+                            ), 
+                            React.createElement("div", {className: "detailsRow"}, 
+                                React.createElement("span", {className: "title"}, "Posts:"), 
+                                React.createElement("span", {className: "value"}, this.props.post.posts)
+                            ), 
+                            React.createElement("div", {className: "detailsRow"}, 
+                                React.createElement("span", {className: "title"}, "Site:"), 
+                                React.createElement("span", {className: "value"}, this.props.post.authorSite)
+                            )
+                        ), 
+                        React.createElement("div", {className: "clear"})
+                    ), 
+                    React.createElement("div", {className: "postContent"}, 
+                        React.createElement("div", null, 
+                            React.createElement("h3", null, this.props.post.postTitle)
+                        ), 
+                        React.createElement("div", null, postContent)
+                    ), 
+                    React.createElement("div", {className: "clear"})
+                );
+        }
 
         return (
             React.createElement("div", {className: "postSide"}, 
-                React.createElement("div", {className: "postDetails"}, 
-                    React.createElement("div", {className: "authorAvatar"}, 
-                        React.createElement("img", {src: this.props.post.authorAvaUrl})
-                    ), 
-
-                    React.createElement("div", {className: "authorDetails"}, 
-                        React.createElement("div", {className: "detailsRow"}, 
-                            React.createElement("span", {className: "title"}, "Author:"), 
-                            React.createElement("span", {className: "value"}, this.props.post.author)
-                        ), 
-                        React.createElement("div", {className: "detailsRow"}, 
-                            React.createElement("span", {className: "title"}, "Age:"), 
-                            React.createElement("span", {className: "value"}, this.props.post.age)
-                        ), 
-                        React.createElement("div", {className: "detailsRow"}, 
-                            React.createElement("span", {className: "title"}, "Posts:"), 
-                            React.createElement("span", {className: "value"}, this.props.post.posts)
-                        ), 
-                        React.createElement("div", {className: "detailsRow"}, 
-                            React.createElement("span", {className: "title"}, "Site:"), 
-                            React.createElement("span", {className: "value"}, this.props.post.authorSite)
-                        )
-                    ), 
-                    React.createElement("div", {className: "clear"})
-                ), 
-                React.createElement("div", {className: "postContent"}, 
-                    React.createElement("div", null, 
-                        React.createElement("h3", null, this.props.post.postTitle)
-                    ), 
-                    React.createElement("div", null, postContent)
-                ), 
-                React.createElement("div", {className: "clear"})
+                content
             )
         )
     }
@@ -307,7 +314,7 @@ PostsCover = React.createClass({displayName: "PostsCover",
         }
     },
     _handleChangeInList: function (params) {
-        var posts, result,
+        var posts = [], result,
             self = this,
             tab = this.state.selectedTab;
 
@@ -337,7 +344,7 @@ PostsCover = React.createClass({displayName: "PostsCover",
         });
     },
     _handleChangeTabSelection: function (tab) {
-        var posts, result, self = this,
+        var posts = [], result, self = this,
             selectedPost;
 
         posts = this.props.posts.filter(function (post) {
