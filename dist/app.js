@@ -26,26 +26,26 @@ FeedSide = React.createClass({displayName: "FeedSide",
         var posts,
             props = this.props;
 
-        posts = this.props.posts.map(function (post) {
-            return (
-                React.createElement(PostCard, {
-                    post: post, 
-                    key: post.id, 
-                    handleCardSelection: props.handleCardSelection, 
-                    onChangeInList: props.handleChangeInList, 
-                    selected: props.selectedPost.id === post.id}
-                )
-            );
-        });
-
-        if (posts.length === 0) {
-            if (props.selectedTab === 'starred') {
+        if (this.props.posts.length > 0) {
+            posts = this.props.posts.map(function (post) {
+                return (
+                    React.createElement(PostCard, {
+                        post: post, 
+                        key: post.id, 
+                        handleCardSelection: props.handleCardSelection, 
+                        onChangeInList: props.handleChangeInList, 
+                        selected: props.selectedPost.id === post.id}
+                    )
+                );
+            });
+        } else {
+            if (props.selectedTab === 'favorite') {
                 posts = React.createElement("div", {className: "emptyList"}, 
                     React.createElement("p", null, "Ups..."), 
                     React.createElement("span", null, "You have no starred posts")
                 )
             }
-            if (props.selectedTab === 'readingList') {
+            if (props.selectedTab === 'reading') {
                 posts = React.createElement("div", {className: "emptyList"}, 
                     React.createElement("p", null, "Ups..."), 
                     React.createElement("span", null, "You have no posts in reading list")
@@ -314,7 +314,7 @@ PostsCover = React.createClass({displayName: "PostsCover",
         }
     },
     _handleChangeInList: function (params) {
-        var posts = [], result,
+        var posts, result,
             self = this,
             tab = this.state.selectedTab;
 
@@ -344,7 +344,7 @@ PostsCover = React.createClass({displayName: "PostsCover",
         });
     },
     _handleChangeTabSelection: function (tab) {
-        var posts = [], result, self = this,
+        var posts, result, self = this,
             selectedPost;
 
         posts = this.props.posts.filter(function (post) {

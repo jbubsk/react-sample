@@ -16,26 +16,26 @@ FeedSide = React.createClass({
         var posts,
             props = this.props;
 
-        posts = this.props.posts.map(function (post) {
-            return (
-                <PostCard
-                    post={post}
-                    key={post.id}
-                    handleCardSelection={props.handleCardSelection}
-                    onChangeInList={props.handleChangeInList}
-                    selected={props.selectedPost.id === post.id}
-                />
-            );
-        });
-
-        if (posts.length === 0) {
-            if (props.selectedTab === 'starred') {
+        if (this.props.posts.length > 0) {
+            posts = this.props.posts.map(function (post) {
+                return (
+                    <PostCard
+                        post={post}
+                        key={post.id}
+                        handleCardSelection={props.handleCardSelection}
+                        onChangeInList={props.handleChangeInList}
+                        selected={props.selectedPost.id === post.id}
+                    />
+                );
+            });
+        } else {
+            if (props.selectedTab === 'favorite') {
                 posts = <div className="emptyList">
                     <p>Ups...</p>
                     <span>You have no starred posts</span>
                 </div>
             }
-            if (props.selectedTab === 'readingList') {
+            if (props.selectedTab === 'reading') {
                 posts = <div className="emptyList">
                     <p>Ups...</p>
                     <span>You have no posts in reading list</span>
