@@ -11,10 +11,12 @@ module.exports = {
         scss: 'styles/**/*.scss',
         style: 'styles/'
     },
+    lib: './bower_components/',
     dest: {
         app: 'app.js',
+        lib: 'libraries.js',
         style: 'style.css',
-        distAll: 'dist/**'
+        distAll: './dist/**'
     },
     dist: './dist/'
 };

@@ -1,12 +1,21 @@
 var gulp = require('gulp'),
     runSequence = require('run-sequence'),
     paths = require('../paths'),
+    concat = require('gulp-concat'),
     source = require('vinyl-source-stream'),
     sass = require('gulp-sass'),
     reactify = require('reactify'),
     browserify = require('browserify');
 
 /**** JS build ****/
+
+gulp.task('build-js-libraries', function () {
+    return gulp.src([
+        paths.lib + 'react/react.js'
+    ])
+        .pipe(concat(paths.dest.lib))
+        .pipe(gulp.dest(paths.dist));
+});
 
 gulp.task('build-js', function () {
     return browserify(paths.src.app)
@@ -32,6 +41,7 @@ gulp.task('build-styles', function (done) {
 gulp.task('build', function (callback) {
     return runSequence(
         'clean',
+        'build-js-libraries',
         ['build-js', 'build-styles'],
         callback
     );
