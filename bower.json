@@ -1,0 +1,21 @@
+{
+  "name": "react-sample",
+  "version": "0.0.1",
+  "authors": [
+    "develojbu@gmail.com"
+  ],
+  "moduleType": [
+    "amd"
+  ],
+  "license": "MIT",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components"
+  ],
+  "dependencies": {
+    "jquery": "~2.1.3",
+    "react": "~0.13.1"
+  }
+}
